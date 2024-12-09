@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/base.astro";
 import DesignerCard from "../components/designerCard.astro";
+import DesignerList from "../components/designerList.astro";
 
 import fetchApi from "../lib/strapi";
 
@@ -11,13 +12,5 @@ const designers = await fetchApi({
 ---
 
 <Base title="designers">
-    <ul>
-        {
-            designers.map((designer) => (
-                <li>
-                    <DesignerCard designer={designer} />
-                </li>
-            ))
-        }
-    </ul>
+    <DesignerList designers={designers} />
 </Base>
