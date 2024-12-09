@@ -6,14 +6,20 @@ const { designer } = Astro.props;
 <article>
     <div class="picwrap">
         <div class="profilepic">
-            <!-- <Image
-                alt=""
-                src={designer.pic}
-                width={300}
-                height={300}
-                alt={`Profile pic of ${designer.name}`}
-            />-->
+            <!-- imgage url? populate -->
+            <Image
+                src={`http://localhost:1337/uploads/achille_Castiglioni_7fab9887dd.jpg`}
+                alt="Product image"
+                width="300"
+                height="400"
+                widths={[250, 350, 500, 750]}
+                format="avif"
+                sizes="(min-width: 2960px) calc(12.5vw - 118px), (min-width: 2600px) calc(5vw + 121px), (min-width: 2240px) calc(5.29vw + 131px), (min-width: 1900px) calc(5vw + 157px), (min-width: 1540px) calc(4.71vw + 180px), (min-width: 1160px) calc(3.33vw + 217px), (min-width: 1120px) calc(325vw - 3455px), (min-width: 760px) calc(3.53vw + 229px), (min-width: 540px) calc(42vw - 43px), calc(8.18vw + 225px)"
+            />
         </div>
     </div>
-    <p class="name"><a href={`url`}>{designer.surname} {designer.lastname}</a></p>
+    <p class="name">
+        <a href={`/designers/${designer.lastname.slug}`}>
+            {designer.surname} {designer.lastname}</a>
+    </p>
 </article>
