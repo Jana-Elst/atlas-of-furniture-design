@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import DesignerCard from "../../components/designerCard.astro";
+
+const designers = await getCollection("designers");
+---
+
+<section>
+    <h2>featured furniture</h2>
+    <ul>
+        {
+            designers.map((member) => (
+                <li>
+                    <DesignerCard designer={member} />
+                </li>
+            ))
+        }
+    </ul>
+
+    <p><a>Meet the designers</a></p>
+</section>

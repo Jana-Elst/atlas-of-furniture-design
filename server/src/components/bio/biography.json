@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_bio_biographies",
+  "info": {
+    "displayName": "Biography"
+  },
+  "options": {},
+  "attributes": {
+    "date": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

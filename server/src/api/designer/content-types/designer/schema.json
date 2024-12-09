@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "designers",
+  "info": {
+    "singularName": "designer",
+    "pluralName": "designers",
+    "displayName": "designer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "surname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "birth": {
+      "type": "integer"
+    },
+    "death": {
+      "type": "integer"
+    },
+    "landBirth": {
+      "type": "string"
+    },
+    "landDeath": {
+      "type": "string"
+    },
+    "bio": {
+      "displayName": "Biography",
+      "type": "component",
+      "repeatable": true,
+      "component": "bio.biography"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "furnitures": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::furniture.furniture",
+      "mappedBy": "designers"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "mappedBy": "designers"
+    }
+  }
+}

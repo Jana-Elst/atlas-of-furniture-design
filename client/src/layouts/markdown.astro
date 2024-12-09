@@ -1,0 +1,13 @@
+---
+import Base from "./base.astro";
+---
+
+<Base>
+  <div class="cols container">
+    <slot name="top" class="top" />
+    <div class="md">
+      <slot />
+    </div>
+    <slot name="sidebar" class="extra" />
+  </div>
+</Base>

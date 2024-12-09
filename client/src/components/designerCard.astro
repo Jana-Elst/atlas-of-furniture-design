@@ -1,0 +1,20 @@
+---
+import { Image } from "astro:assets";
+const { designer } = Astro.props;
+---
+
+<article>
+    <div class="picwrap">
+        <div class="profilepic">
+            <!-- <Image
+                alt=""
+                src={designer.pic}
+                width={300}
+                height={300}
+                alt={`Profile pic of ${designer.name}`}
+            />-->
+        </div>
+    </div>
+    <p class="name"><a href={`url`}>{designer.surname} {designer.lastname}</a></p>
+    <p class="birth">{designer.birth}</p>
+</article>

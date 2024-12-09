@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "furnitures",
+  "info": {
+    "singularName": "furniture",
+    "pluralName": "furnitures",
+    "displayName": "furniture",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "firstProduction": {
+      "type": "integer"
+    },
+    "designers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::designer.designer",
+      "inversedBy": "furnitures"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "mappedBy": "furnitures"
+    },
+    "materials": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::material.material",
+      "mappedBy": "furnitures"
+    },
+    "object_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::manufacturer.manufacturer",
+      "inversedBy": "furnitures"
+    }
+  }
+}

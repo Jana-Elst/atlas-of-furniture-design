@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "manufacturers",
+  "info": {
+    "singularName": "manufacturer",
+    "pluralName": "manufacturers",
+    "displayName": "objectType",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "furnitures": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::furniture.furniture",
+      "mappedBy": "object_type"
+    }
+  }
+}
