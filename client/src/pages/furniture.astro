@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/base.astro";
+import Filter from "../components/filter.astro";
+import FurnitureList from "../components/furnitureList.astro";
+
+import fetchApi from "../lib/strapi";
+
+const furnitures = await fetchApi({
+    endpoint: "furnitures",
+    query: {
+        populate: ["image", "designers", "object_type"],
+    },
+    wrappedByKey: "data",
+});
+
+const categories = await fetchApi({
+    endpoint: "manufacturers",
+    wrappedByKey: "data",
+});
+---
+
+<style>
+    h2 {
+        text-align: center;
+        font-size: calc(2 * var(--fs-5));
+        font-weight: 100;
+        padding: var(--sp-2xl) 0;
+    }
+</style>
+
+<Base title="furniture">
+    <h2>Furniture</h2>
+    <Filter categories={categories} />
+    <FurnitureList furnitures={furnitures} />
+</Base>

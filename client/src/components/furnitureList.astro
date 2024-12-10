@@ -1,9 +1,8 @@
 ---
-import DesignerCard from "../components/designerCard.astro";
+import FurnitureCard from "../components/furnitureCard.astro";
 
 import fetchApi from "../lib/strapi";
-const { designers } = Astro.props;
-console.log(designers);
+const { furnitures } = Astro.props;
 ---
 
 <style>
@@ -18,9 +17,9 @@ console.log(designers);
 
 <ul>
     {
-        designers.map((designer) => (
+        furnitures.map((furniture) => (
             <li>
-                <DesignerCard designer={designer} />
+                <FurnitureCard furniture={furniture} />
             </li>
         ))
     }

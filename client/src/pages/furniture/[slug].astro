@@ -1,27 +1,26 @@
 ---
-import { getCollection } from "astro:content";
-import Markdown from "../../layouts/markdown.astro";
-import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/base.astro";
+import fetchApi from "../../lib/strapi";
 
 export async function getStaticPaths() {
-  const heroesEntries = await getCollection("furniture");
-  return heroesEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
+  const furnitures = await fetchApi({
+    endpoint: "furnitures",
+    wrappedByKey: "data",
+  });
+  const paths = furnitures.map((furniture, i) => ({
+    params: { slug: furniture.slug },
+    props: {
+      furniture,
+    },
   }));
+  console.log(paths);
+
+  return paths;
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { furniture } = Astro.props;
 ---
 
-<Markdown>
-  <div slot="top">
-    <a href="/#furniture">furniture</a>
-    <h2><span>{entry.data.name}</span></h2>
-  </div>
-  <Content />
-  <div slot="sidebar" class="profile">
-  </div>
-</Markdown>
-
+<BaseLayout pageTitle={furniture.lastname}>
+  <h2>Products in the <span>{furniture.lastname}</span> category</h2>
+</BaseLayout>

@@ -1,16 +1,29 @@
 ---
 import Base from "../layouts/base.astro";
-import DesignerCard from "../components/designerCard.astro";
 import DesignerList from "../components/designerList.astro";
 
 import fetchApi from "../lib/strapi";
 
 const designers = await fetchApi({
-    endpoint: "designers?populate=image&populate=bio",
+    endpoint: "designers",
+    query: {
+        populate: ["image", "bio"]
+    },
     wrappedByKey: "data",
 });
+
+console.log(designers);
 ---
+<style>
+    h2 {
+        text-align: center;
+        font-size: calc(2*var(--fs-5));
+        font-weight: 100;
+        padding: var(--sp-2xl) 0;
+    }
+</style>
 
 <Base title="designers">
+    <h2>Designers</h2>
     <DesignerList designers={designers} />
 </Base>

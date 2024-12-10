@@ -1,9 +1,7 @@
 :root {
-  --color-primary: #ffe600;
   --color-black: #191A23;
   --color-grey: #F3F3F3;
   --color-white: #ffffff;
-
   --color-text: var(--color-black);
 
   --fs--2: clamp(0.6944rem, 0.6856rem + 0.0444vw, 0.72rem);
@@ -38,10 +36,14 @@
   /* Custom pairs */
   --sp-s-l: clamp(1rem, 0.5652rem + 2.1739vw, 2.25rem);
 
-  --br-s: 0.5rem;
-  --br-l: 3rem;
-
   --max-width-page: 75rem;
+
+  /* border-radius */
+  --br-1: 10px;
+  --br-2: 20px;
+
+  /* shadow */
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -75,9 +77,34 @@ img {
 }
 
 body {
-  font-family: "Future", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: var(--fs-0);
   line-height: 1.4;
   color: var(--color-black);
   accent-color: var(--color-primary);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.light {
+  font-weight: 200;
+}
+
+.nav__item {
+  border-bottom: 2px solid #fff;
+  transition:
+    border-bottom 0.2s ease-in-out,
+    font-weight 0.2s ease-in-out;
+}
+
+.nav__item:hover {
+  border-bottom: 2px solid var(--color-black);
+  font-weight: 500;
 }

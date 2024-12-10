@@ -1,8 +1,46 @@
+<style>
+    footer {
+        margin-top: var(--sp-2xl);
+        border-top: 2px solid var(--color-black);
+        padding: var(--sp-l) var(--sp-2xl);
+    }
+
+    .nav__title > a {
+        display: flex;
+        flex-direction: column;
+        font-weight: 400;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        font-size: var(--fs-1);
+        margin-bottom: var(--sp-2xl);
+    }
+
+    .nav__item {
+        text-align: end;
+    }
+
+    .nav__item + .nav__item {
+        margin-top: var(--sp-s);
+    }
+
+    .credits {
+        text-align: center;
+        font-size: var(--fs--1);
+    }
+</style>
+
 <div class="container">
     <footer>
-        <nav>
-            <span>(online) Atlas of Furniture Design</span>
-            <a href="/"></a>
+        <nav class="nav">
+            <p class="nav__title">
+                <a href="/"
+                    ><span class="italic light">(online)</span> Atlas of furniture
+                    design</a
+                >
+            </p>
             <ul class="nav__list" id="nav__list">
                 <li class="nav__item">
                     <a class="nav__link" href="/furniture">Furniture</a>
@@ -10,14 +48,11 @@
                 <li class="nav__item">
                     <a class="nav__link" href="/designer">Designers</a>
                 </li>
-                <li class="nav__item">
-                    <a class="nav__link" href="/manufacturers">Manufacturers</a>
-                </li>
             </ul>
         </nav>
         <p class="credits">
             This website is based on the Atlas of Furniture Design by the Vitra
-            Design Museum. We thank the museum for its dedication to preserving
+            Design Museum. <br> We thank the museum for its dedication to preserving
             and sharing the history of modern furniture design.
         </p>
     </footer>

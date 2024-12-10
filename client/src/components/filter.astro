@@ -1,0 +1,24 @@
+---
+const { categories } = Astro.props;
+---
+<style>
+    
+</style>
+
+<ul>
+    {
+        categories.map((category) => (
+            <li>
+                <label>
+                    <span>{category.name}</span>
+                    <input
+                        class="filteroption"
+                        type="checkbox"
+                        value={category.slug}
+                        name="filter"
+                    />
+                </label>
+            </li>
+        ))
+    }
+</ul>

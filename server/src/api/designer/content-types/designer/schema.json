@@ -58,6 +58,10 @@
       "relation": "manyToMany",
       "target": "api::tag.tag",
       "mappedBy": "designers"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "lastname"
     }
   }
 }
