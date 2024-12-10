@@ -8,7 +8,7 @@ const { designer } = Astro.props;
         <div class="profilepic">
             <!-- imgage url? populate -->
             <Image
-                src={`http://localhost:1337/uploads/achille_Castiglioni_7fab9887dd.jpg`}
+                src={`${import.meta.env.STRAPI_URL}${designer.image.url}`}
                 alt="Product image"
                 width="300"
                 height="400"
@@ -20,6 +20,7 @@ const { designer } = Astro.props;
     </div>
     <p class="name">
         <a href={`/designers/${designer.lastname.slug}`}>
-            {designer.surname} {designer.lastname}</a>
+            {designer.surname} {designer.lastname}</a
+        >
     </p>
 </article>
