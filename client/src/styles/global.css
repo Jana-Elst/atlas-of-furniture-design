@@ -89,6 +89,10 @@ a {
   color: black;
 }
 
+.hidden {
+  display: none;
+}
+
 .italic {
   font-style: italic;
 }

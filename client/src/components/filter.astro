@@ -8,6 +8,8 @@ const { objectTypes } = Astro.props;
             ...document.querySelectorAll(".filteroption:checked"),
         ].map(($input) => $input.value);
 
+        console.log(selection);
+
         if (selection.length > 0) {
             document
                 .querySelectorAll("[data-category]")
@@ -25,13 +27,11 @@ const { objectTypes } = Astro.props;
         }
     };
 
-    document.addEventListener("astro:page-load", () => {
-        console.log("pagina geladen");
-        const options = document.querySelectorAll(".filteroption");
-        options.forEach((option) =>
-            option.addEventListener("change", handleOptionChange),
-        );
-    });
+    const options = document.querySelectorAll(".filteroption");
+    console.log(options);
+    options.forEach((option) =>
+        option.addEventListener("click", handleOptionChange),
+    );
 
     console.log("hallo");
 </script>
@@ -48,7 +48,7 @@ const { objectTypes } = Astro.props;
         display: none;
     }
 
-    label {
+    li {
         padding: var(--sp-2xs) var(--sp-xs);
         border: 1px solid var(--color-black);
         font-size: var(--fs-1);
@@ -56,8 +56,8 @@ const { objectTypes } = Astro.props;
         transition: all 0.5s;
     }
 
-    label:hover,
-    label:has(input:checked) {
+    li:hover,
+    li:has(input:checked) {
         background-color: var(--color-black);
         color: #fff;
         font-weight: 400;

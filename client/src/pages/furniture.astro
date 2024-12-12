@@ -11,6 +11,7 @@ const furnitures = await fetchApi({
         pagination: {
             pageSize: 50,
         },
+        //sort: ["firstProduction"],
         populate: ["image", "designers", "object_type"],
     },
     wrappedByKey: "data",

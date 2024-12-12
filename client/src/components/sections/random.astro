@@ -1,0 +1,9 @@
+---
+
+
+const {elements, text, url } = Astro.props;
+const slugsArr = elements.map((element) => element.slug);
+const slug = slugsArr[Math.floor(Math.random() * slugsArr.length)];
+---
+
+<Button buttonText={"new designer"} , btnURL={`/designer/${slug}`} />

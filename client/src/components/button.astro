@@ -1,5 +1,5 @@
 ---
-const { buttonText, btnURL, btnClass } = Astro.props;
+const { buttonText, btnURL } = Astro.props;
 ---
 
 <style>
@@ -12,11 +12,16 @@ const { buttonText, btnURL, btnClass } = Astro.props;
         transition: all 0.5s;
     }
 
-    a:hover > div {
+    div:hover {
         color: #fff;
         font-weight: 400;
         background-color: var(--color-black);
     }
+
+    div:hover > a {
+        color: #fff;
+        font-weight: 400;
+    }
 </style>
 
-<a href={btnURL} class={btnClass}><div>{buttonText}</div></a>
+<div><a href={btnURL}>{buttonText}</a></div>

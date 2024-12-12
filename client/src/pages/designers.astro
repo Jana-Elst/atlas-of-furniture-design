@@ -7,17 +7,19 @@ import fetchApi from "../lib/strapi";
 const designers = await fetchApi({
     endpoint: "designers",
     query: {
-        populate: ["image", "bio"]
+        populate: ["image", "bio"],
+        sort: ["lastname"],
     },
     wrappedByKey: "data",
 });
 
 console.log(designers);
 ---
+
 <style>
     h2 {
         text-align: center;
-        font-size: calc(2*var(--fs-5));
+        font-size: calc(2 * var(--fs-5));
         font-weight: 100;
         padding: var(--sp-2xl) 0;
     }

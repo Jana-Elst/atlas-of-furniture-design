@@ -34,15 +34,27 @@ const furnitures = await fetchApi({
     wrappedByKey: "data",
 });
 
+const designers = await fetchApi({
+    endpoint: "designers",
+    query: {
+      pagination: {
+            pageSize: 50,
+      },
+    },
+    wrappedByKey: "data",
+});
+
 const { designer } = Astro.props;
 const bio = designer.bio;
 const furnituresDesigner = designer.furnitures;
 
+const slugsArr = designers.map((designer) => designer.slug);
+const slug = slugsArr[Math.floor(Math.random() * slugsArr.length)];
 ---
   <style>
     .designer {
       display: grid;
-      grid-template-columns: 50% 1fr;
+      grid-template-columns: 50vw 1fr;
       grid-template-rows: min-content 33vw max-content;
       gap: var(--sp-xl);
       align-items: start;
@@ -90,10 +102,6 @@ const furnituresDesigner = designer.furnitures;
       margin-top: var(--sp-xs);
     }
 
-    .image {
-      object-fit: fill;
-    }
-
     .furniture {
       border: solid 1px var(--color-black);
       padding: var(--sp-s);
@@ -111,32 +119,38 @@ const furnituresDesigner = designer.furnitures;
 
       display: grid;
       grid-template-columns: 1fr 1fr;
-
     }
 
     .subtitle--furniture {
       justify-self: start;
     }
 
+    .image {
+      grid-column: 1;
+      grid-row: 2;
+      object-fit: cover;
+    }
 
   </style>
 
   <BaseLayout pageTitle={designer.lastname}>
+    <Button buttonText={'new designer'}, btnURL={`/designer/${slug}`}/>
     <div class="container designer">
       <div class="intro">
         <h2 class="name">{`${designer.surname} ${designer.lastname}`}</h2>
         <p class="info">{`(${designer.birth}, ${designer.landBirth} - ${designer.death}, ${designer.landDeath})`}</p>
       </div>
-      <Image
-        src={`${import.meta.env.STRAPI_URL}${designer.image.url}`}
-        alt="Product image"
-        width="300"
-        height="300"
-        widths={[250, 350, 500, 750]}
-        format="avif"
-        sizes="(min-width: 2960px) calc(12.5vw - 118px), (min-width: 2600px) calc(5vw + 121px), (min-width: 2240px) calc(5.29vw + 131px), (min-width: 1900px) calc(5vw + 157px), (min-width: 1540px) calc(4.71vw + 180px), (min-width: 1160px) calc(3.33vw + 217px), (min-width: 1120px) calc(325vw - 3455px), (min-width: 760px) calc(3.53vw + 229px), (min-width: 540px) calc(42vw - 43px), calc(8.18vw + 225px)"
-        class="image"
-      />
+        <Image
+          src={`${import.meta.env.STRAPI_URL}${designer.image.url}`}
+          alt="Product image"
+          width="500"
+          height="500"
+          widths={[250, 350, 500, 750]}
+          format="avif"
+          class="image"
+          sizes="(min-width: 2960px) calc(12.5vw - 118px), (min-width: 2600px) calc(5vw + 121px), (min-width: 2240px) calc(5.29vw + 131px), (min-width: 1900px) calc(5vw + 157px), (min-width: 1540px) calc(4.71vw + 180px), (min-width: 1160px) calc(3.33vw + 217px), (min-width: 1120px) calc(325vw - 3455px), (min-width: 760px) calc(3.53vw + 229px), (min-width: 540px) calc(42vw - 43px), calc(8.18vw + 225px)"
+        />
+
       <div class="bio">
         <h3 class="subtitle">Bio</h3>
         <dl class="bio__content">
@@ -164,7 +178,7 @@ const furnituresDesigner = designer.furnitures;
                   </li>
               ))
           }
-          </ul>
+        </ul>
       </div>
     </div>
   </BaseLayout>

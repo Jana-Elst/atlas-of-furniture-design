@@ -4,17 +4,32 @@ import Button from "../../components/button.astro";
 
 import fetchApi from "../../lib/strapi.js";
 
-const furnitures = await fetchApi({
-    endpoint: "furnitures",
+// const furnitures = await fetchApi({
+//     endpoint: "furnitures",
+//     query: {
+//         pagination: {
+//             pageSize: 50,
+//         },
+//         populate: ["image", "designers", "tags", "tags.name"],
+//     },
+//     wrappedByKey: "data",
+// });
+
+const tags = await fetchApi({
+    endpoint: "tags",
     query: {
         pagination: {
             pageSize: 50,
         },
-        populate: ["image", "designers", "object_type", "tags"],
+        populate: ["furnitures", "furnitures.image"],
+    },
+    filters: {
+        name: {
+            $eq: "popular",
+        },
     },
     wrappedByKey: "data",
 });
-
 ---
 
 <style>
@@ -46,9 +61,16 @@ const furnitures = await fetchApi({
     <h2 class="section__title">Featured furniture</h2>
     <ul class="furnitures__list">
         {
-            furnitures.map((furniture) => (
-                <li data-objectType={furniture.objectType?.slug}>
-                    <FurnitureCard furniture={furniture} />
+            tags.map((tag) => (
+                <li>
+                    {tag.name}
+                    <ul>
+                        {tag.furnitures.map((furniture) => (
+                            <li>
+                                <FurnitureCard furniture={furniture} />
+                            </li>
+                        ))}
+                    </ul>
                 </li>
             ))
         }

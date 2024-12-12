@@ -16,7 +16,7 @@ const { furnitures } = Astro.props;
 <ul class="furnitures__list">
     {
         furnitures.map((furniture) => (
-            <li data-objectType={furniture.objectType?.slug}>
+            <li data-category={furniture.object_type.slug}>
                 <FurnitureCard furniture={furniture} />
             </li>
         ))
