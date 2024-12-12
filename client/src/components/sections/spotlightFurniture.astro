@@ -1,0 +1,66 @@
+---
+import FurnitureCard from "../../components/FurnitureCard.astro";
+import Button from "../../components/button.astro";
+
+import fetchApi from "../../lib/strapi.js";
+
+const furnitures = await fetchApi({
+    endpoint: "furnitures",
+    query: {
+        pagination: {
+            pageSize: 50,
+        },
+        populate: ["image", "designers", "object_type", "tags"],
+    },
+    wrappedByKey: "data",
+});
+
+---
+
+<style>
+    section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content;
+        align-items: center;
+    }
+
+    .furnitures__list {
+        grid-column: 1 / 3;
+        overflow: scroll;
+        display: flex;
+    }
+
+    .furnitures__list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .btn {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+    }
+</style>
+
+<section class="container">
+    <h2 class="section__title">Featured furniture</h2>
+    <ul class="furnitures__list">
+        {
+            furnitures.map((furniture) => (
+                <li data-objectType={furniture.objectType?.slug}>
+                    <FurnitureCard furniture={furniture} />
+                </li>
+            ))
+        }
+    </ul>
+
+    <div class="btn">
+        <Button
+            buttonText={"discover the collection -->"}
+            ,
+            btnURL={"/furniture"}
+            ,
+            btnClass={"btn"}
+        />
+    </div>
+</section>

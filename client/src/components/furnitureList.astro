@@ -13,7 +13,7 @@ const { furnitures } = Astro.props;
     }
 </style>
 
-<ul>
+<ul class="furnitures__list">
     {
         furnitures.map((furniture) => (
             <li data-objectType={furniture.objectType?.slug}>

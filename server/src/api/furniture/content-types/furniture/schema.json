@@ -38,12 +38,6 @@
       "target": "api::designer.designer",
       "inversedBy": "furnitures"
     },
-    "tags": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tag.tag",
-      "mappedBy": "furnitures"
-    },
     "materials": {
       "type": "relation",
       "relation": "manyToMany",
@@ -59,6 +53,12 @@
     "slug": {
       "type": "uid",
       "targetField": "title"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "furnitures"
     }
   }
 }

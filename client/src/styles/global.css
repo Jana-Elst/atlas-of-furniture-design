@@ -112,3 +112,10 @@ a {
 .container {
   margin: 0 var(--sp-xl);
 }
+
+.section__title {
+  font-size: var(--fs-3);
+  font-weight: 300;
+  margin-bottom: var(--sp-xs);
+  margin-top: var(--sp-l)
+}

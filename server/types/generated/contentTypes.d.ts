@@ -528,6 +528,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
 export interface ApiTagTag extends Struct.CollectionTypeSchema {
   collectionName: 'tags';
   info: {
+    description: '';
     displayName: 'tag';
     pluralName: 'tags';
     singularName: 'tag';
