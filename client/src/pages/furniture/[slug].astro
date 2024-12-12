@@ -1,10 +1,19 @@
 ---
 import BaseLayout from "../../layouts/base.astro";
 import fetchApi from "../../lib/strapi";
+import { Image } from "astro:assets";
+import DesignerCard from "../../components/designerCard.astro";
+
 
 export async function getStaticPaths() {
   const furnitures = await fetchApi({
     endpoint: "furnitures",
+    query: {
+      pagination: {
+            pageSize: 50,
+      },
+      populate: ["image", "designers", "object_type", "materials"],
+    },
     wrappedByKey: "data",
   });
   const paths = furnitures.map((furniture, i) => ({
@@ -18,9 +27,128 @@ export async function getStaticPaths() {
   return paths;
 }
 
+const designers = await fetchApi({
+    endpoint: "designers",
+    query: {
+      populate: ["image", "bio", "furnitures"],
+    },
+    wrappedByKey: "data",
+  });
+
 const { furniture } = Astro.props;
+const designersFurniture = furniture.designers;
+
 ---
 
-<BaseLayout pageTitle={furniture.lastname}>
-  <h2>Products in the <span>{furniture.lastname}</span> category</h2>
+<style>
+    .furniture {
+      display: grid;
+      grid-template-columns: 30% 1fr min-content;
+      grid-template-rows: min-content min-content min-content max-content;
+      column-gap: var(--sp-m);
+    }
+
+    .intro {
+      display: flex;
+      gap: var(--sp-s);
+      align-items: baseline;
+
+      grid-column: 1 / 4;
+      grid-row: 1;
+    }
+
+    .title {
+      font-size: var(--fs-5);
+      font-weight: 300;
+    }
+
+    .date {
+      font-size: var(--fs-1);
+      font-weight: 200;
+      font-style: italic;
+    }
+
+    .image {
+      grid-column: 1;
+      justify-self: center;
+    }
+
+    .designers {
+        font-size: var(--fs-3);
+        font-weight: 200;
+    }
+
+    .materials__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-s);
+      grid-column: 1;
+
+      align-self: start;
+      justify-self: center;
+    }
+
+    .materials__item  {
+      border: 1px solid var(--color-black);
+      padding: var(--sp-2xs) var(--sp-l);
+    }
+
+    .description {
+      grid-row: 3 / 5;
+      grid-column: 2;
+    }
+
+    .designers__list {
+      grid-column: 3;
+      grid-row: 3 / 5;
+      align-self: end;
+    }
+
+
+</style>
+
+<BaseLayout pageTitle={furniture.title}>
+  <div class="container furniture">
+    <div class="intro">
+      <h2 class="title">{furniture.title}</h2>
+      <p class="date">{furniture.firstProduction}</p>
+    </div>
+      <ul class="designers">
+        {furniture.designers.map((designer, i) => (
+          <li>{`${designer.surname} ${designer.lastname}`}</li>
+        )
+        )}
+      </ul>
+    <Image
+      src={`${import.meta.env.STRAPI_URL}${furniture.image.url}`}
+      alt="Product image"
+      width="300"
+      height="400"
+      widths={[250, 350, 500, 750]}
+      format="avif"
+      sizes="(min-width: 2960px) calc(12.5vw - 118px), (min-width: 2600px) calc(5vw + 121px), (min-width: 2240px) calc(5.29vw + 131px), (min-width: 1900px) calc(5vw + 157px), (min-width: 1540px) calc(4.71vw + 180px), (min-width: 1160px) calc(3.33vw + 217px), (min-width: 1120px) calc(325vw - 3455px), (min-width: 760px) calc(3.53vw + 229px), (min-width: 540px) calc(42vw - 43px), calc(8.18vw + 225px)"
+      class="image"
+    />
+    <ul class="materials__list">
+      {
+      furniture.materials.map((material) => (
+        <li class="materials__item">{material.name}</li>
+      ))
+    }
+    </ul>
+
+    <p class="description">{furniture.description}</p>
+    <ul class="designers__list">
+          {
+              designersFurniture.map((designerFurniture) => (
+                  <li>
+                    <DesignerCard designer={designers.find(designer => designer.slug === designerFurniture.slug)} />
+                      <!-- in alle meubels zoek je op basis van furniture.slug het meubel dat overeenkomt met dezelfde slug. Die referentieslug komt uit designer.furnitures -->
+                  </li>
+              ))
+          }
+    </ul>
+
+  </div>
+
 </BaseLayout>

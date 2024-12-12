@@ -108,3 +108,7 @@ a {
   border-bottom: 2px solid var(--color-black);
   font-weight: 500;
 }
+
+.container {
+  margin: 0 var(--sp-xl);
+}

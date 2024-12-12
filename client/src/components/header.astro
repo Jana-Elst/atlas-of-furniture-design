@@ -4,26 +4,30 @@
 
 <style>
     .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         font-size: var(--fs-1);
-
-        margin: var(--sp-xl);
-    }
-
-    .nav__title > a {
-        display: flex;
-        flex-direction: column;
-
-        font-weight: 400;
+        margin: var(--sp-s);
     }
 
     .nav__list {
         display: flex;
         gap: var(--sp-xl);
     }
-    
+
+    @media (min-width: 38rem) {
+        .nav__title > a {
+            display: flex;
+            flex-direction: column;
+
+            font-weight: 400;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: var(--sp-xl);
+        }
+    }
 </style>
 
 <header class="container">

@@ -1,13 +1,28 @@
 ---
 import { Image } from "astro:assets";
 const { furniture } = Astro.props;
+
+//make correct string for url
+// let furnitureURL = furniture.title;
+// furnitureURL = furnitureURL
+//     .replace(/ /g, "-")
+//     .replace(/\//g, "-")
+//     .replace(/\./g, "-")
+//     .replace(/\,/g, "-")
+//     .replace(/\ù/g, "u")
+//     .replace(/\(/g, "-")
+//     .replace(/\)/g, "-")
+//     .replace(/(\d+)([A-Za-z])/g, "$1-$2")
+//     .replace(/--+/g, "-")
+//     .replace(/-$/, "");
+
+// furnitureURL = furnitureURL.toLowerCase();
 ---
 
 <style>
-    .wrapper {
+    .wrapper > a {
         display: grid;
-        grid-template-columns: max-content min-content;
-        grid-template-rows: max-content;
+        grid-template-columns: 20rem;
         justify-content: center;
         padding: var(--sp-s);
         transition: background-color 0.3s;
@@ -16,13 +31,14 @@ const { furniture } = Astro.props;
     .image {
         opacity: 75%;
         aspect-ratio: 1;
-        object-fit: cover;
+        object-fit: contain;
     }
 
     .name {
         margin-top: var(--sp-s);
         font-size: var(--fs-1);
         font-weight: 400;
+        justify-self: start;
     }
 
     .wrapper:hover > a > .image {
@@ -35,7 +51,7 @@ const { furniture } = Astro.props;
 </style>
 
 <div class="wrapper">
-    <a href={`/furniture/${furniture.title.toLowerCase()}`}>
+    <a href={`/furniture/${furniture.slug}`}>
         <Image
             src={`${import.meta.env.STRAPI_URL}${furniture.image.url}`}
             alt="Product image"

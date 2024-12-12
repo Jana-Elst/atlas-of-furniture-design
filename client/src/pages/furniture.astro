@@ -8,13 +8,21 @@ import fetchApi from "../lib/strapi";
 const furnitures = await fetchApi({
     endpoint: "furnitures",
     query: {
+        pagination: {
+            pageSize: 50,
+        },
         populate: ["image", "designers", "object_type"],
     },
     wrappedByKey: "data",
 });
 
-const categories = await fetchApi({
+const objectTypes = await fetchApi({
     endpoint: "manufacturers",
+    wrappedByKey: "data",
+});
+
+const designers = await fetchApi({
+    endpoint: "designers",
     wrappedByKey: "data",
 });
 ---
@@ -30,6 +38,7 @@ const categories = await fetchApi({
 
 <Base title="furniture">
     <h2>Furniture</h2>
-    <Filter categories={categories} />
+    <Filter objectTypes={objectTypes} />
+    <!-- <Filter designers={designers} /> -->
     <FurnitureList furnitures={furnitures} />
 </Base>

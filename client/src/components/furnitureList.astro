@@ -1,7 +1,5 @@
 ---
 import FurnitureCard from "../components/furnitureCard.astro";
-
-import fetchApi from "../lib/strapi";
 const { furnitures } = Astro.props;
 ---
 
@@ -18,7 +16,7 @@ const { furnitures } = Astro.props;
 <ul>
     {
         furnitures.map((furniture) => (
-            <li>
+            <li data-objectType={furniture.objectType?.slug}>
                 <FurnitureCard furniture={furniture} />
             </li>
         ))

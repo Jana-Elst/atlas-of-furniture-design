@@ -1,20 +1,84 @@
 ---
-const { categories } = Astro.props;
+const { objectTypes } = Astro.props;
 ---
+
+<script>
+    const handleOptionChange = () => {
+        const selection = [
+            ...document.querySelectorAll(".filteroption:checked"),
+        ].map(($input) => $input.value);
+
+        if (selection.length > 0) {
+            document
+                .querySelectorAll("[data-category]")
+                .forEach(($li) => $li.classList.add("hidden"));
+
+            selection.forEach((category) => {
+                document
+                    .querySelectorAll(`[data-category="${category}"]`)
+                    .forEach(($li) => $li.classList.remove("hidden"));
+            });
+        } else {
+            document
+                .querySelectorAll("[data-category]")
+                .forEach(($li) => $li.classList.remove("hidden"));
+        }
+    };
+
+    document.addEventListener("astro:page-load", () => {
+        console.log("pagina geladen");
+        const options = document.querySelectorAll(".filteroption");
+        options.forEach((option) =>
+            option.addEventListener("change", handleOptionChange),
+        );
+    });
+
+    console.log("hallo");
+</script>
+
 <style>
-    
+    ul {
+        display: flex;
+        gap: var(--sp-2xs);
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    input {
+        display: none;
+    }
+
+    label {
+        padding: var(--sp-2xs) var(--sp-xs);
+        border: 1px solid var(--color-black);
+        font-size: var(--fs-1);
+        font-weight: 300;
+        transition: all 0.5s;
+    }
+
+    label:hover,
+    label:has(input:checked) {
+        background-color: var(--color-black);
+        color: #fff;
+        font-weight: 400;
+    }
+
+    /* label:has(input:checked):hover {
+        background-color: transparent;
+        color: var(--color-black);
+    } */
 </style>
 
 <ul>
     {
-        categories.map((category) => (
+        objectTypes.map((objectType) => (
             <li>
                 <label>
-                    <span>{category.name}</span>
+                    <span>{objectType.name}</span>
                     <input
                         class="filteroption"
                         type="checkbox"
-                        value={category.slug}
+                        value={objectType.slug}
                         name="filter"
                     />
                 </label>

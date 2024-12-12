@@ -1,0 +1,21 @@
+---
+const { buttonText, btnURL, btnClass } = Astro.props;
+---
+
+<style>
+    a {
+        padding: var(--sp-2xs) var(--sp-xs);
+        border: 1px solid var(--color-black);
+        font-size: var(--fs-1);
+        font-weight: 300;
+        transition: all 0.5s;
+    }
+
+    a:hover {
+        background-color: var(--color-black);
+        color: #fff;
+        font-weight: 400;
+    }
+</style>
+
+<div class={btnClass}><a href={btnURL}>{buttonText}</a></div>

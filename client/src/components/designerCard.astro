@@ -35,7 +35,7 @@ const { designer } = Astro.props;
 </style>
 
 <div class="wrapper">
-    <a href={`/designer/${designer.lastname.toLowerCase()}`}>
+    <a href={`/designer/${designer.slug}`}>
         <Image
             src={`${import.meta.env.STRAPI_URL}${designer.image.url}`}
             alt="Product image"

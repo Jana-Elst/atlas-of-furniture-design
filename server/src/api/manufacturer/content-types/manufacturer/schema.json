@@ -20,6 +20,10 @@
       "relation": "oneToMany",
       "target": "api::furniture.furniture",
       "mappedBy": "object_type"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }
