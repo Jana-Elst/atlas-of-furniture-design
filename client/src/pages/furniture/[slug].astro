@@ -1,10 +1,16 @@
 ---
+//variabelen
+const { furniture } = Astro.props;
+const designersFurniture = furniture.designers;
+
+//components & layouts
 import BaseLayout from "../../layouts/base.astro";
-import fetchApi from "../../lib/strapi";
-import { Image } from "astro:assets";
 import DesignerCard from "../../components/designerCard.astro";
+import Button from "../../components/button.astro";
+import { Image } from "astro:assets";
 
-
+//API
+import fetchApi from "../../lib/strapi";
 export async function getStaticPaths() {
   const furnitures = await fetchApi({
     endpoint: "furnitures",
@@ -34,10 +40,6 @@ const designers = await fetchApi({
     },
     wrappedByKey: "data",
   });
-
-const { furniture } = Astro.props;
-const designersFurniture = furniture.designers;
-
 ---
 
 <style>
@@ -133,7 +135,14 @@ const designersFurniture = furniture.designers;
     <ul class="materials__list">
       {
       furniture.materials.map((material) => (
-        <li class="materials__item">{material.name}</li>
+        <li><Button
+                buttonText={material.name}
+                ,
+                btnURL={`/material/${material.slug}`}
+                ,
+                btnClass={"btn"}
+            />
+        </li>
       ))
     }
     </ul>

@@ -1,0 +1,99 @@
+---
+const { material } = Astro.props;
+
+//components & layouts
+import Base from "../../layouts/base.astro";
+import ListPage from "../../components/listPage.astro";
+import FurnitureCard from "../../components/furnitureCard.astro";
+
+//API
+import fetchApi from "../../lib/strapi";
+export async function getStaticPaths() {
+    const materials = await fetchApi({
+        endpoint: "materials",
+        query: {
+            pagination: {
+                pageSize: 50,
+            },
+            populate: ["furnitures", "furnitures.image"],
+        },
+        wrappedByKey: "data",
+    });
+
+    const paths = materials.map((material, i) => ({
+        params: { slug: material.slug },
+        props: {
+            material,
+        },
+    }));
+    console.log(paths);
+    return paths;
+}
+
+const materials = await fetchApi({
+    endpoint: "materials",
+    wrappedByKey: "data",
+});
+---
+
+<script>
+    const handleOptionChange = (event) => {
+        const selected = $dropdown.value;
+        document.location.href = `/material/${selected}`;
+    };
+
+    const $dropdown = document.querySelector(".dropdown");
+    $dropdown.addEventListener("change", handleOptionChange);
+</script>
+
+<style>
+    .filter {
+        display: grid;
+        grid-template-columns: max-content min-content;
+        gap: var(--sp-s);
+        align-items: center;
+        justify-content: center;
+    }
+
+    label,
+    select {
+        font-family: Inter;
+        text-align: center;
+        font-weight: 200;
+        font-size: var(--fs-3);
+    }
+
+    select {
+        padding: var(--sp-xs);
+        border-radius: 0;
+        border: var(--color-black) 1px solid;
+        text-align: left;
+        background-color: white; /* Set a background color */
+    }
+</style>
+
+<Base title="materials">
+    <ListPage title={material.name}>
+        <div class="filter" slot="filter">
+            <label for="material-select">Furniture with</label>
+            <select class="dropdown" name="materials" id="material-select">
+                <option value="">{material.name}</option>
+                {
+                    materials.map((material) => (
+                        <option class="filteroption" value={material.slug}>
+                            {material.name}
+                        </option>
+                    ))
+                }
+            </select>
+        </div>
+
+        {
+            material.furnitures.map((furniture) => (
+                <li>
+                    <FurnitureCard furniture={furniture} />
+                </li>
+            ))
+        }
+    </ListPage>
+</Base>

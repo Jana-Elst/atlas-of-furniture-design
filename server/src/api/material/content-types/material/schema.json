@@ -20,6 +20,10 @@
       "relation": "manyToMany",
       "target": "api::furniture.furniture",
       "inversedBy": "materials"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }

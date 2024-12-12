@@ -1,14 +1,101 @@
 ---
+//layout & componenten
 import Base from "../layouts/base.astro";
-import Hero from "../components/sections/hero.astro";
-import SpotlightFurniture from "../components/sections/spotlightFurniture.astro";
-import SpotlightDesigner from "../components/sections/spotlightDesigner.astro";
-import Book from "../components/sections/book.astro";
+import CardListFeatured from "../components/cardListFeatured.astro";
+import Hero from "../components/hero.astro";
+import Book from "../components/book.astro";
+import FurnitureCard from "../components/furnitureCard.astro";
+import DesignerCard from "../components/designerCard.astro";
+import Button from "../components/button.astro";
+
+//api
+import fetchApi from "../lib/strapi.js";
+
+const tags = await fetchApi({
+    endpoint: "tags",
+    query: {
+        pagination: {
+            pageSize: 50,
+        },
+        populate: [
+            "furnitures",
+            "furnitures.image",
+            "designers",
+            "designers.image",
+        ],
+    },
+    filters: {
+        name: {
+            $eq: "popular",
+        },
+    },
+    wrappedByKey: "data",
+});
 ---
+
+<style>
+    .featured__list {
+        overflow: scroll;
+        display: flex;
+    }
+
+    .featured__list::-webkit-scrollbar {
+        display: none;
+    }
+</style>
 
 <Base title="home">
     <Hero />
-    <SpotlightFurniture />
-    <SpotlightDesigner />
+    <CardListFeatured listName={"Featured furniture"}>
+        <div slot="button">
+            <Button
+                buttonText={"discover all furniture -->"}
+                ,
+                btnURL={"/designer"}
+                ,
+                btnClass={"btn"}
+            />
+        </div>
+
+        {
+            tags.map((tag) => (
+                <li>
+                    <ul class="featured__list">
+                        {tag.furnitures.map((furniture) => (
+                            <li>
+                                <FurnitureCard furniture={furniture} />
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+            ))
+        }
+    </CardListFeatured>
+
+    <CardListFeatured listName={"Featured designers"}>
+        <div slot="button">
+            <Button
+                buttonText={"meet the designers -->"}
+                ,
+                btnURL={"/designer"}
+                ,
+                btnClass={"btn"}
+            />
+        </div>
+
+        {
+            tags.map((tag) => (
+                <li>
+                    <ul class="featured__list">
+                        {tag.designers.map((designer) => (
+                            <li>
+                                <DesignerCard designer={designer} />
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+            ))
+        }
+    </CardListFeatured>
     <Book />
 </Base>

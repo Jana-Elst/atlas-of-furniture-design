@@ -1,9 +1,11 @@
 ---
+//components & layouts
 import Base from "../layouts/base.astro";
-import DesignerList from "../components/designerList.astro";
+import ListPage from "../components/listPage.astro";
+import DesignerCard from "../components/DesignerCard.astro";
 
+//API
 import fetchApi from "../lib/strapi";
-
 const designers = await fetchApi({
     endpoint: "designers",
     query: {
@@ -16,16 +18,14 @@ const designers = await fetchApi({
 console.log(designers);
 ---
 
-<style>
-    h2 {
-        text-align: center;
-        font-size: calc(2 * var(--fs-5));
-        font-weight: 100;
-        padding: var(--sp-2xl) 0;
-    }
-</style>
-
 <Base title="designers">
-    <h2>Designers</h2>
-    <DesignerList designers={designers} />
+    <ListPage title={"designers"}>
+        {
+            designers.map((designer) => (
+                <li>
+                    <DesignerCard designer={designer} />
+                </li>
+            ))
+        }
+    </ListPage>
 </Base>

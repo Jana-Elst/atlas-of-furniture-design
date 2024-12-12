@@ -1,0 +1,43 @@
+---
+const { listName, wrap } = Astro.props;
+---
+
+<style>
+    .element {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content;
+        align-items: center;
+    }
+
+    .list {
+        grid-column: 1 / 3;
+        overflow: scroll;
+        display: flex;
+    }
+
+    .list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .title {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .button {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+    }
+</style>
+
+<div class="container element">
+    <h3 class="title section__title">{listName}</h3>
+    <div class="button">
+        <slot name="button" />
+    </div>
+    <ul class={`list ${wrap}`}>
+        <slot />
+    </ul>
+</div>

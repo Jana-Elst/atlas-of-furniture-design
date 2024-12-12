@@ -1,5 +1,5 @@
 ---
-const { objectTypes } = Astro.props;
+const {filters, filterName} = Astro.props;
 ---
 
 <script>
@@ -71,14 +71,14 @@ const { objectTypes } = Astro.props;
 
 <ul>
     {
-        objectTypes.map((objectType) => (
+        filters.map((filter) => (
             <li>
                 <label>
-                    <span>{objectType.name}</span>
+                    <span>{filter[filterName]}</span>
                     <input
                         class="filteroption"
                         type="checkbox"
-                        value={objectType.slug}
+                        value={filter.slug}
                         name="filter"
                     />
                 </label>

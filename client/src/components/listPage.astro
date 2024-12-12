@@ -1,0 +1,36 @@
+---
+//layout & componenten
+
+//variabelen
+const { title, showTitle } = Astro.props;
+---
+
+<style>
+    .title {
+        text-align: center;
+        font-size: calc(2 * var(--fs-5));
+        font-weight: 100;
+        padding: var(--sp-2xl) 0;
+    }
+
+    .list {
+        margin: var(--sp-m);
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 21rem));
+        gap: var(--sp-s);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+</style>
+
+<div>
+    <h2 class=`title ${showTitle}`>{title}</h2>
+    <slot name="filter" />
+    <ul class="list">
+        <slot />
+    </ul>
+</div>
