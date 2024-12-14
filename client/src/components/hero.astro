@@ -7,7 +7,7 @@ import Button from "../components/button.astro";
     .header {
         display: grid;
         grid-template-columns: max-content 1fr;
-        grid-template-rows: 60vh min-content;
+        grid-template-rows: 55vh min-content;
         align-items: end;
         justify-items: end;
         gap: var(--sp-xl);
@@ -33,9 +33,11 @@ import Button from "../components/button.astro";
     }
 
     .image {
+        height: 70vh;
         grid-column: 2;
         grid-row: 1 / 3;
         object-fit: cover;
+        object-position: left;
     }
 
     .btn > div {
@@ -59,8 +61,8 @@ import Button from "../components/button.astro";
         <Image
             src="/headerIMG.png"
             alt="Product image"
-            width="1440"
-            height="810"
+            width="2880"
+            height="1620"
             widths={[250, 350, 500, 750]}
             format="avif"
             sizes="(min-width: 2960px) calc(12.5vw - 118px), (min-width: 2600px) calc(5vw + 121px), (min-width: 2240px) calc(5.29vw + 131px), (min-width: 1900px) calc(5vw + 157px), (min-width: 1540px) calc(4.71vw + 180px), (min-width: 1160px) calc(3.33vw + 217px), (min-width: 1120px) calc(325vw - 3455px), (min-width: 760px) calc(3.53vw + 229px), (min-width: 540px) calc(42vw - 43px), calc(8.18vw + 225px)"

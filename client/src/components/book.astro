@@ -4,17 +4,21 @@ import Button from "../components/button.astro";
 ---
 
 <style>
-     .section__content {
+    .section__content {
         display: grid;
-        grid-template-columns: 50% auto;
-        grid-template-rows: min-content min-content;
-        gap: var(--sp-3);
-        justify-items: end;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: min-content 1fr;
+        gap: var(--sp-m);
+        justify-items: start;
+        align-items: start;
     }
 
     .image {
         grid-column: 2;
         grid-row: 1 / 3;
+        height: 25rem;
+        object-fit: contain;
+        object-position: right;
     }
 
     .content__text {
@@ -27,7 +31,7 @@ import Button from "../components/button.astro";
     <h2 class="section__title">The Atlas of Furniture Design</h2>
     <div class="section__content">
         <Image
-            src="/atlas-of-furniture.png"
+            src="/atlas-of-furniture.jpg"
             alt="Product image"
             width="1200"
             height="1200"
@@ -44,7 +48,7 @@ import Button from "../components/button.astro";
             innovations behind the world's most famous furniture.
         </p>
         <Button
-            buttonText={"buy book ↗︎"}
+            buttonText={"Buy the Atlas of Furniture ↗︎"}
             ,
             btnURL={"https://www.vitra.com/nl-be/product/details/atlas-of-furniture-design?srsltid=AfmBOooJzGIGYXp9jS7E40p7aZb-FTIltewXKrdU2AOitz2TTQYK0C2h"}
             ,

@@ -114,7 +114,7 @@ a {
 }
 
 .container {
-  margin: 0 var(--sp-xl);
+  margin: 0 var(--sp-3xl);
 }
 
 .section__title {
