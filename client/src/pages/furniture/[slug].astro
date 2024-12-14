@@ -71,28 +71,12 @@ const filteredFurniture = furnitures.filter(furniture => dates.includes(furnitur
 ---
 
 <style>
-    /* .furniture {
-      display: grid;
-      grid-template-columns: 30% 1fr min-content;
-      grid-template-rows: min-content min-content min-content max-content;
-      column-gap: var(--sp-m);
-    } */
-
-    /* .intro {
-      display: flex;
-      gap: var(--sp-s);
-      align-items: baseline;
-
-      grid-column: 1 / 4;
-      grid-row: 1;
-    } */
-
     .intro {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-column: 1fr max-content;
       gap: var(--sp-m);
       align-items: baseline;
-      justify-content: space-between;
+      justify-items: start;
     }
 
     .intro__content {
@@ -153,6 +137,11 @@ const filteredFurniture = furnitures.filter(furniture => dates.includes(furnitur
 
       justify-content: center;
       align-content: flex-start;
+    }
+
+    .button {
+      grid-column: 2;
+      justify-self: end;
     }
 
 </style>
