@@ -71,20 +71,32 @@ const filteredFurniture = furnitures.filter(furniture => dates.includes(furnitur
 ---
 
 <style>
-    .furniture {
+    /* .furniture {
       display: grid;
       grid-template-columns: 30% 1fr min-content;
       grid-template-rows: min-content min-content min-content max-content;
       column-gap: var(--sp-m);
-    }
+    } */
 
-    .intro {
+    /* .intro {
       display: flex;
       gap: var(--sp-s);
       align-items: baseline;
 
       grid-column: 1 / 4;
       grid-row: 1;
+    } */
+
+    .intro {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-m);
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .intro__content {
+      gap: var(--sp-m);
     }
 
     .title {
@@ -93,20 +105,44 @@ const filteredFurniture = furnitures.filter(furniture => dates.includes(furnitur
     }
 
     .date {
+      padding-left: var(--sp-m);
       font-size: var(--fs-1);
       font-weight: 200;
       font-style: italic;
     }
 
-    .image {
-      grid-column: 1;
-      justify-self: center;
-      width: 50rem;
-    }
-
-    .designers {
+    .name {
         font-size: var(--fs-3);
         font-weight: 200;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 40vw min-content;
+      grid-template-rows: 40vh max-content max-content;
+      gap: var(--sp-l);
+    }
+
+    .image {
+      grid-column: 1;
+      grid-row: 1;
+      max-height: 40vh;
+      object-fit: contain;
+    }
+
+    .description {
+      grid-row: 1 / 3;
+      grid-column: 2;
+    }
+
+    .designers__list {
+      grid-column: 3;
+      grid-row: 1 / 3;
+      align-self: end;
+    }
+
+    .furniture-related {
+      grid-column: 1 / 4;
     }
 
     .materials__list {
@@ -115,80 +151,67 @@ const filteredFurniture = furnitures.filter(furniture => dates.includes(furnitur
       gap: var(--sp-s);
       grid-column: 1;
 
-      align-self: start;
-      justify-self: center;
+      justify-content: center;
+      align-content: flex-start;
     }
-
-    .materials__item  {
-      border: 1px solid var(--color-black);
-      padding: var(--sp-2xs) var(--sp-l);
-    }
-
-    .description {
-      grid-row: 3 / 5;
-      grid-column: 2;
-    }
-
-    .designers__list {
-      grid-column: 3;
-      grid-row: 3 / 5;
-      align-self: end;
-    }
-
 
 </style>
 
 <BaseLayout pageTitle={furniture.title}>
   <div class="container furniture">
     <div class="intro">
-      <h2 class="title">{furniture.title}</h2>
-      <p class="date">{furniture.firstProduction}</p>
-    </div>
-        <ButtonRandom elementName={'furniture'}, elements={furnitures}/>
-      <ul class="designers">
-        {furniture.designers.map((designer, i) => (
-          <li>{`${designer.surname} ${designer.lastname}`}</li>
-        )
-        )}
+      <div class="intro__content">
+        <h2 class="title">{furniture.title} <span class="date">{furniture.firstProduction}</span></h2>
+        <ul class="name">
+          {furniture.designers.map((designer, i) => (
+            <li>{`${designer.surname} ${designer.lastname}`}</li>
+            )
+          )}
       </ul>
-    <Image
-      src={`${import.meta.env.STRAPI_URL}${furniture.image.url}`}
-      alt="Product image"
-      width="300"
-      height="400"
-      widths={[250, 350, 500, 750]}
-      format="avif"
-      sizes="(min-width: 2960px) calc(12.5vw - 118px), (min-width: 2600px) calc(5vw + 121px), (min-width: 2240px) calc(5.29vw + 131px), (min-width: 1900px) calc(5vw + 157px), (min-width: 1540px) calc(4.71vw + 180px), (min-width: 1160px) calc(3.33vw + 217px), (min-width: 1120px) calc(325vw - 3455px), (min-width: 760px) calc(3.53vw + 229px), (min-width: 540px) calc(42vw - 43px), calc(8.18vw + 225px)"
-      class="image"
-    />
-    <ul class="materials__list">
-      {
-      furniture.materials.map((material) => (
-        <li><Button
-                buttonText={material.name}
-                ,
-                btnURL={`/material/${material.slug}`}
-                ,
-                btnClass={"btn"}
-            />
-        </li>
-      ))
-    }
-    </ul>
+      </div>
+      <div class="button">
+        <ButtonRandom elementName={'furniture'}, elements={furnitures}/>
+      </div>
+    </div>
 
-    <p class="description">{furniture.description}</p>
-    <ul class="designers__list">
-          {
-              furniture.designers.map((designer) => (
-                  <li>
-                    <DesignerCard designer={designer} />
-                      <!-- in alle meubels zoek je op basis van furniture.slug het meubel dat overeenkomt met dezelfde slug. Die referentieslug komt uit designer.furnitures -->
-                  </li>
-              ))
-          }
-    </ul>
-    
-        <div class="furniture-related">
+    <div class="content">
+      <Image
+        src={`${import.meta.env.STRAPI_URL}${furniture.image.url}`}
+        alt="Product image"
+        width="500"
+        height="500"
+        widths={[250, 350, 500, 750]}
+        format="avif"
+        sizes="(min-width: 2960px) calc(12.5vw - 118px), (min-width: 2600px) calc(5vw + 121px), (min-width: 2240px) calc(5.29vw + 131px), (min-width: 1900px) calc(5vw + 157px), (min-width: 1540px) calc(4.71vw + 180px), (min-width: 1160px) calc(3.33vw + 217px), (min-width: 1120px) calc(325vw - 3455px), (min-width: 760px) calc(3.53vw + 229px), (min-width: 540px) calc(42vw - 43px), calc(8.18vw + 225px)"
+        class="image"
+      />
+      <ul class="materials__list">
+        {
+        furniture.materials.map((material) => (
+          <li><Button
+                  buttonText={material.name}
+                  ,
+                  btnURL={`/material/${material.slug}`}
+                  ,
+                  btnClass={"btn"}
+              />
+          </li>
+        ))
+      }
+      </ul>
+      <p class="description">{furniture.description}</p>
+      <ul class="designers__list">
+            {
+                furniture.designers.map((designer) => (
+                    <li>
+                      <DesignerCard designer={designer} />
+                        <!-- in alle meubels zoek je op basis van furniture.slug het meubel dat overeenkomt met dezelfde slug. Die referentieslug komt uit designer.furnitures -->
+                    </li>
+                ))
+            }
+      </ul>
+
+      <div class="furniture-related">
         <FurnitureListDetail>
           {
               filteredFurniture.map((furniture) => (
@@ -198,6 +221,7 @@ const filteredFurniture = furnitures.filter(furniture => dates.includes(furnitur
               ))
           }
         </FurnitureListDetail>
+    </div>
     </div>
   </div>
 
