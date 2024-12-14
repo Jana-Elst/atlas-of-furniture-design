@@ -4,6 +4,7 @@ import fetchApi from "../../lib/strapi";
 import { Image } from "astro:assets";
 import FurnitureCard from "../../components/furnitureCard.astro";
 import Button from "../../components/button.astro";
+import ButtonRandom from "../../components/buttonRandom.astro";
 
 export async function getStaticPaths() {
   const designers = await fetchApi({
@@ -47,9 +48,6 @@ const designers = await fetchApi({
 const { designer } = Astro.props;
 const bio = designer.bio;
 const furnituresDesigner = designer.furnitures;
-
-const slugsArr = designers.map((designer) => designer.slug);
-const slug = slugsArr[Math.floor(Math.random() * slugsArr.length)];
 ---
   <style>
     .designer {
@@ -130,15 +128,24 @@ const slug = slugsArr[Math.floor(Math.random() * slugsArr.length)];
       grid-row: 2;
       object-fit: cover;
     }
-
   </style>
 
   <BaseLayout pageTitle={designer.lastname}>
-    <Button buttonText={'new designer'}, btnURL={`/designer/${slug}`}/>
+    <ButtonRandom elementName={'designer'}, elements={designers}/>
+
     <div class="container designer">
       <div class="intro">
         <h2 class="name">{`${designer.surname} ${designer.lastname}`}</h2>
-        <p class="info">{`(${designer.birth}, ${designer.landBirth} - ${designer.death}, ${designer.landDeath})`}</p>
+        <p class="info">{
+          (() => {
+            if (designer.death && designer.landDeath) {
+            return `(${designer.birth}, ${designer.landBirth} - ${designer.death}, ${designer.landDeath})`
+          } else {
+            return `(${designer.birth}, ${designer.landBirth})`
+          }
+          })
+          }
+          </p>
       </div>
         <Image
           src={`${import.meta.env.STRAPI_URL}${designer.image.url}`}

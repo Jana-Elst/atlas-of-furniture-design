@@ -8,6 +8,7 @@ import BaseLayout from "../../layouts/base.astro";
 import DesignerCard from "../../components/designerCard.astro";
 import Button from "../../components/button.astro";
 import { Image } from "astro:assets";
+import ButtonRandom from "../../components/buttonRandom.astro";
 
 //API
 import fetchApi from "../../lib/strapi";
@@ -40,6 +41,17 @@ const designers = await fetchApi({
     },
     wrappedByKey: "data",
   });
+
+  const furnitures = await fetchApi({
+    endpoint: "furnitures",
+    query: {
+      pagination: {
+            pageSize: 50,
+      },
+        populate: ["image"],
+    },
+    wrappedByKey: "data",
+});
 ---
 
 <style>
@@ -116,6 +128,7 @@ const designers = await fetchApi({
       <h2 class="title">{furniture.title}</h2>
       <p class="date">{furniture.firstProduction}</p>
     </div>
+        <ButtonRandom elementName={'furniture'}, elements={furnitures}/>
       <ul class="designers">
         {furniture.designers.map((designer, i) => (
           <li>{`${designer.surname} ${designer.lastname}`}</li>

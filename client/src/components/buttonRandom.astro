@@ -1,0 +1,14 @@
+---
+import Button from "../components/button.astro";
+
+const { elementName, elements } = Astro.props;
+
+const slugsArr = elements.map((element) => element.slug);
+const slug = slugsArr[Math.floor(Math.random() * slugsArr.length)];
+---
+
+<Button
+    buttonText={`pick random ${elementName}`}
+    ,
+    btnURL={`/${elementName}/${slug}`}
+/>
