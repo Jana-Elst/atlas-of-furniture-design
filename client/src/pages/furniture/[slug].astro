@@ -56,18 +56,20 @@ const designers = await fetchApi({
     wrappedByKey: "data",
 });
 
-let date = furniture.firstProduction;
+const furnitureNameArr = furnitures.map(furniture => furniture.title);
+const index = furnitureNameArr.indexOf(furniture.title);
+const filteredFurniture = furnitures.slice(index + 1, index + 4);
 
-let furnitureDates = furnitures.map((furniture) => ({
-  date: furniture.firstProduction,
-  diff: Math.abs(furniture.firstProduction - date)
-}));
+if (filteredFurniture.length < 3) {
+  const length = filteredFurniture.length;
+  console.log(index);
+  console.log(length);
+  const extraFurnitures = furnitures.slice(index - 3 + length, index);
 
-furnitureDates.sort((a, b) => a.diff - b.diff);
-furnitureDates = furnitureDates.slice(0, 3);
-let dates = furnitureDates.map((date) => date.date);
-
-const filteredFurniture = furnitures.filter(furniture => dates.includes(furniture.firstProduction));
+  extraFurnitures.forEach(furniture => {
+    filteredFurniture.push(furniture);
+  });
+  }
 ---
 
 <style>
