@@ -1,0 +1,45 @@
+---
+import Button from "../components/button.astro";
+---
+
+<style>
+    .subtitle {
+        font-size: var(--fs-3);
+        font-weight: 200;
+        justify-self: start;
+    }
+
+    .furniture {
+        border: solid 1px var(--color-black);
+        padding: var(--sp-s);
+    }
+
+    .furniture__heading {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .furniture__list {
+        margin: var(--sp-m);
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 21rem));
+        gap: var(--sp-s);
+    }
+</style>
+
+<div class="furniture">
+    <div class="furniture__heading">
+        <h3 class="subtitle subtitle--furniture">Furniture</h3>
+        <Button
+            buttonText={"discover more furniture -->"}
+            ,
+            btnURL={"/furniture"}
+        />
+    </div>
+
+    <ul class="furniture__list">
+        <slot />
+    </ul>
+</div>

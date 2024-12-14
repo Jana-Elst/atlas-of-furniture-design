@@ -1,16 +1,21 @@
 ---
+//variabelen
+const { designer } = Astro.props;
+
+//components & layouts
 import BaseLayout from "../../layouts/base.astro";
 import fetchApi from "../../lib/strapi";
 import { Image } from "astro:assets";
 import FurnitureCard from "../../components/furnitureCard.astro";
-import Button from "../../components/button.astro";
 import ButtonRandom from "../../components/buttonRandom.astro";
+import FurnitureListDetail from "../../components/furnitureListDetail.astro";
 
+//API
 export async function getStaticPaths() {
   const designers = await fetchApi({
     endpoint: "designers",
     query: {
-      populate: ["image", "bio", "furnitures"],
+      populate: ["image", "bio", "furnitures", "furnitures.image"],
     },
     wrappedByKey: "data",
   });
@@ -24,17 +29,6 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const furnitures = await fetchApi({
-    endpoint: "furnitures",
-    query: {
-      pagination: {
-            pageSize: 50,
-      },
-        populate: ["image"],
-    },
-    wrappedByKey: "data",
-});
-
 const designers = await fetchApi({
     endpoint: "designers",
     query: {
@@ -45,9 +39,6 @@ const designers = await fetchApi({
     wrappedByKey: "data",
 });
 
-const { designer } = Astro.props;
-const bio = designer.bio;
-const furnituresDesigner = designer.furnitures;
 ---
   <style>
     .designer {
@@ -99,37 +90,9 @@ const furnituresDesigner = designer.furnitures;
     .bio__description + .bio__date {
       margin-top: var(--sp-xs);
     }
-
-    .furniture {
-      border: solid 1px var(--color-black);
-      padding: var(--sp-s);
-
-      display: grid;
-      grid-template-rows: min-content min-content;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      justify-items: end;
-    }
-
-    .furniture__list {
-      grid-column: 1 / 3;
-      justify-self: center;
-
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .subtitle--furniture {
-      justify-self: start;
-    }
-
-    .image {
-      grid-column: 1;
-      grid-row: 2;
-      object-fit: cover;
-    }
   </style>
 
+  
   <BaseLayout pageTitle={designer.lastname}>
     <ButtonRandom elementName={'designer'}, elements={designers}/>
 
@@ -162,7 +125,7 @@ const furnituresDesigner = designer.furnitures;
         <h3 class="subtitle">Bio</h3>
         <dl class="bio__content">
           {
-            bio.map((item) => (
+            designer.bio.map((item) => (
                 <dt class="bio__date">
                   {item.date}
                 </dt>
@@ -173,19 +136,16 @@ const furnituresDesigner = designer.furnitures;
           }
         </dl>
       </div>
-      <div class="furniture" >
-        <h3 class="subtitle subtitle--furniture">Furniture</h3>
-        <Button buttonText={'discover more furniture -->'}, btnURL={"/furniture"}, btnClass={'furniture__btn'} />
-
-        <ul class="furniture__list">
+      <div class="furniture">
+        <FurnitureListDetail>
           {
-              furnituresDesigner.map((furnitureDesigner) => (
+              designer.furnitures.map((furniture) => (
                   <li>
-                    <FurnitureCard furniture={furnitures.find(furniture => furniture.slug === furnitureDesigner.slug)} /> <!-- in alle meubels zoek je op basis van furniture.slug het meubel dat overeenkomt met dezelfde slug. Die referentieslug komt uit designer.furnitures -->
+                    <FurnitureCard furniture={furniture} /> <!-- in alle meubels zoek je op basis van furniture.slug het meubel dat overeenkomt met dezelfde slug. Die referentieslug komt uit designer.furnitures -->
                   </li>
               ))
           }
-        </ul>
+        </FurnitureListDetail>
       </div>
     </div>
   </BaseLayout>

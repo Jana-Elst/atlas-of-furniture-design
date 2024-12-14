@@ -3,7 +3,7 @@ const { buttonText, btnURL } = Astro.props;
 ---
 
 <style>
-    div {
+    span {
         font-size: var(--fs-1);
         font-weight: 300;
         transition: all 0.5s;
@@ -12,16 +12,15 @@ const { buttonText, btnURL } = Astro.props;
         transition: all 0.5s;
     }
 
-    div:hover {
-        color: #fff;
+    span:hover {
         font-weight: 400;
         background-color: var(--color-black);
     }
 
-    div:hover > a {
+    span:hover > a {
         color: #fff;
         font-weight: 400;
     }
 </style>
 
-<div><a href={btnURL}>{buttonText}</a></div>
+<span><a href={btnURL}>{buttonText}</a></span>
