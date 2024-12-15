@@ -5,6 +5,8 @@ const { elementName, elements } = Astro.props;
 
 const slugsArr = elements.map((element) => element.slug);
 const slug = slugsArr[Math.floor(Math.random() * slugsArr.length)];
+console.log(slugsArr);
+console.log(slug);
 ---
 
 <Button
