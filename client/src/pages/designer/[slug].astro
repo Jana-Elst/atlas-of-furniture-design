@@ -10,19 +10,15 @@ import FurnitureCard from "../../components/furnitureCard.astro";
 import ButtonRandom from "../../components/buttonRandom.astro";
 import FurnitureListDetail from "../../components/furnitureListDetail.astro";
 
-// Import the local JSON data
-import allData from "../../data/strapi-data.json";
-
 //API
 export async function getStaticPaths() {
-  const designers = allData.designers;
-  // const designers = await fetchApi({
-  //   endpoint: "designers",
-  //   query: {
-  //     populate: ["image", "bio", "furnitures", "furnitures.image"],
-  //   },
-  //   wrappedByKey: "data",
-  // });
+  const designers = await fetchApi({
+    endpoint: "designers",
+    query: {
+      populate: ["image", "bio", "furnitures", "furnitures.image"],
+    },
+    wrappedByKey: "data",
+  });
 
   const paths = designers.map((designer, i) => ({
     params: { slug: designer.slug },
